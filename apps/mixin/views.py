@@ -57,7 +57,7 @@ from .pagination import HumanPag
 #     def delete(self, request, *args, **kwargs):
 #         return self.destroy(request, *args, **kwargs)
 
-
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 
 class HumanViewsets(viewsets.ModelViewSet):
     queryset = Human.objects.all().order_by('id',)
@@ -71,3 +71,16 @@ class HumanViewsets(viewsets.ModelViewSet):
     search_fields = ('title', 'description')
 
     ordering = ('title',) # order = 1 
+
+    def get_permissions(self):
+        if self.action in ['list', 'retrieve']:
+            self.permission_classes = [AllowAny]
+        elif self.action in ['create', 'update', 'partial_update']:
+            self.permission_classes = [IsAuthenticated]
+        elif self.action in ['destroy']:
+            self.permission_classes = [IsAdminUser]
+        else:
+            self.permission_classes = [IsAuthenticated]
+
+
+        return [permission() for permission in self.permission_classes]

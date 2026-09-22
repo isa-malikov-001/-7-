@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'django_filters',
     'apps.serial',
     'apps.product',
@@ -137,4 +138,22 @@ CACHES = {
         'LOCATION': 'Новая папка (6)-cache',
         'TIMEOUT': 300,
     }
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+          ## сессии Cookies, Требудет Csrf токен на получение[post put и тд]
+        'rest_framework.authentication.BasicAuthentication',
+          ## базовый username:password он не зашифрован на HTTP, лучше работать с HTTPS
+        'rest_framework.authentication.TokenAuthentication',
+          ## Аутентификация через токены с каждым запросом где стоит Permission(доступы использует)
+          ## Token: token(key) 
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        ## по JWT токену
+        ## Bearer: token 
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+    'rest_framework.permissions.AllowAny'
+    ], ## по умолчанию доступ открыт
 }
