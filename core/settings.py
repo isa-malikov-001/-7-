@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'django_filters',
     'apps.serial',
     'apps.product',
-    'apps.mixin'
+    'apps.mixin',
+    'apps.Shop',
 ]
 
 MIDDLEWARE = [

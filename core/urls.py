@@ -31,5 +31,6 @@ urlpatterns = [
 
     path('task/', include('apps.serial.urls')),
     path('product/', include('apps.product.urls')),
-    path('mixin/', include('apps.mixin.urls'))
+    path('mixin/', include('apps.mixin.urls')),
+    path('api/', include('apps.Shop.urls')),
 ]
